@@ -7,7 +7,7 @@ timeframe="5m"
 config_file="user_data/config.json"
 plot_result=true
 
-output_folder=$PWD/user_data/backtest_results/${strategy_name}_backtest_results
+output_folder=${PWD}/user_data/backtest_results/${strategy_name}_backtest_results
 mkdir -p $output_folder
 project_path=$PWD
 
@@ -30,9 +30,9 @@ echo -e "\nbacktest analysis: \n"
 freqtrade backtesting-analysis -c $config_file --analysis-groups 0 1 2 3 4 --indicator-list open_date close_date profit_abs close profit_ratio --analysis-to-csv --analysis-csv-path $output_folder 
 echo -e "\n****************************************************\n"
 
-old_plot_dir=$project_path/user_data/plot
+old_plot_dir=${project_path}/user_data/plot
 # deleting old plots
-$old_plot_dir
+cd $old_plot_dir
 rm -r $(ls)
 cd $project_path
 
@@ -40,11 +40,11 @@ echo -e "\nploting backtest results: \n"
 freqtrade plot-dataframe -s $strategy_name --timerange ${start_time}- -c $config_file 
 echo -e "\n****************************************************\n"
 
-mkdir -p $output_folder/plot
+mkdir -p ${output_folder}/plot
 cd $old_plot_dir
 for plot in $(ls)
 do 
-	mv plot $output_folder/plot
+	mv plot ${output_folder}/plot
 	if $plot_result = true
 	then
 		open plot
